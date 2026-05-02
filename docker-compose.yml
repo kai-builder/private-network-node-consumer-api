@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+    image: private-network-demo-node-consumer-api:latest
+    environment:
+      APP_NAME: node-consumer-api
+      PORT: 3000
+      REDIS_URL: ${REDIS_URL:-redis://localhost:6379}
+      DATABASE_URL: ${DATABASE_URL:-postgres://demo_user:demo_password@localhost:5432/demo_app}
+      REQUEST_TIMEOUT_MS: ${REQUEST_TIMEOUT_MS:-2500}
+    ports:
+      - "${APP_PUBLIC_PORT:-18081}:3000"
+    restart: unless-stopped
