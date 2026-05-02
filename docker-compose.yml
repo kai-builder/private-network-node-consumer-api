@@ -2,7 +2,6 @@ services:
   app:
     build:
       context: .
-    image: private-network-demo-node-consumer-api:latest
     environment:
       APP_NAME: node-consumer-api
       PORT: 3000
