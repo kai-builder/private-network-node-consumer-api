@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node Consumer + Redis Demo</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Node Consumer Redis Demo</h1>
+        <p class="subtitle">
+          UI for private-network linking tests. Before linking: Redis calls fail. After linking: CRUD works.
+        </p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-title-row">
+          <h2>Connection</h2>
+          <button id="refresh-connection">Refresh</button>
+        </div>
+        <div id="connection-status" class="status-box">Loading...</div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Add / Update Record</h2>
+          <form id="set-form" class="form">
+            <label>
+              Key
+              <input id="set-key" value="demo:record:1" required />
+            </label>
+            <label>
+              Value
+              <textarea id="set-value" rows="3" required>{"title":"hello"}</textarea>
+            </label>
+            <label>
+              TTL seconds (optional)
+              <input id="set-ttl" type="number" min="0" placeholder="0 = no expiry" />
+            </label>
+            <button type="submit">Save To Redis</button>
+          </form>
+        </div>
+
+        <div>
+          <h2>Get / Delete Record</h2>
+          <form id="get-form" class="form">
+            <label>
+              Key
+              <input id="get-key" value="demo:record:1" required />
+            </label>
+            <div class="row">
+              <button type="submit">Load From Redis</button>
+              <button type="button" id="delete-btn" class="danger">Delete Key</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="panel grid-two">
+        <div>
+          <h2>Bulk Demo Data</h2>
+          <form id="load-demo-form" class="form">
+            <label>
+              Prefix
+              <input id="demo-prefix" value="demo:record:" required />
+            </label>
+            <label>
+              Count
+              <input id="demo-count" type="number" min="1" max="100" value="5" required />
+            </label>
+            <button type="submit">Load Demo Records</button>
+          </form>
+        </div>
+
+        <div>
+          <h2>List Records</h2>
+          <form id="list-form" class="form">
+            <label>
+              Pattern
+              <input id="list-pattern" value="demo:*" required />
+            </label>
+            <label>
+              Limit
+              <input id="list-limit" type="number" min="1" max="500" value="50" required />
+            </label>
+            <button type="submit">List From Redis</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Result</h2>
+        <pre id="result">No actions yet.</pre>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
